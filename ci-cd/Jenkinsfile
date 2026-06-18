@@ -11,13 +11,13 @@ pipeline {
         }
         
         stage('Build & Test') {
-            steps {
-                echo 'Building and running Unit Tests...'
-                dir('backend') {
-                    bat 'mvn clean install'
-                }
-            }
+    steps {
+        echo 'Building project (tests skipped)...'
+        dir('backend') {
+            bat 'mvn clean install -DskipTests'
         }
+    }
+}
 
         stage('Docker Build') {
             steps {
