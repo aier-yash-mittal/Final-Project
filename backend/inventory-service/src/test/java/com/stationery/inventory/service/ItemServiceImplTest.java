@@ -10,11 +10,15 @@ import org.mockito.MockitoAnnotations;
 import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
+import com.stationery.inventory.repository.AuditLogRepository;
 
 public class ItemServiceImplTest {
 
     @Mock
     private ItemRepository itemRepository;
+
+    @Mock
+    private AuditLogRepository auditLogRepository;
 
     @InjectMocks
     private ItemServiceImpl itemService;
