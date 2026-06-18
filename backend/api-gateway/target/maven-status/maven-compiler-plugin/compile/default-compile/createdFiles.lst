@@ -1,0 +1,4 @@
+com\stationery\gateway\filter\JwtAuthenticationFilter.class
+com\stationery\gateway\filter\JwtAuthenticationFilter$Config.class
+com\stationery\gateway\filter\RouterValidator.class
+com\stationery\gateway\ApiGatewayApplication.class

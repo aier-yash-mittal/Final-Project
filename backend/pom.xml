@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+    <packaging>pom</packaging>
+    
+	<groupId>com.stationery</groupId>
+	<artifactId>stationery-management-system</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>stationery-management-system</name>
+	<description>Parent POM for Stationery Management System Microservices</description>
+
+	<modules>
+		<module>eureka-server</module>
+		<module>config-server</module>
+		<module>api-gateway</module>
+		<module>auth-service</module>
+		<module>inventory-service</module>
+		<module>request-service</module>
+	</modules>
+
+</project>

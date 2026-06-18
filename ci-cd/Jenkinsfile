@@ -1,0 +1,45 @@
+pipeline {
+    agent any
+
+    tools {
+        maven 'Maven 3.8.x'
+        jdk 'Java 17'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // Checkout code from repository (Assuming git)
+                echo 'Checking out code...'
+                // git 'https://github.com/your-repo/stationery-management-system.git'
+            }
+        }
+        
+        stage('Build & Test') {
+            steps {
+                echo 'Building and running Unit Tests...'
+                dir('backend') {
+                    sh 'mvn clean install'
+                }
+            }
+        }
+
+        stage('Docker Build') {
+            steps {
+                echo 'Building Docker Images...'
+                dir('ci-cd') {
+                    sh 'docker-compose build'
+                }
+            }
+        }
+        
+        stage('Deploy') {
+            steps {
+                echo 'Deploying containers using Docker Compose...'
+                dir('ci-cd') {
+                    sh 'docker-compose up -d'
+                }
+            }
+        }
+    }
+}

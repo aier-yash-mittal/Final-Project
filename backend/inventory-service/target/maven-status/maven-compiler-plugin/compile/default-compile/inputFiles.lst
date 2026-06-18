@@ -1,0 +1,9 @@
+C:\Users\yashm\.gemini\antigravity\scratch\stationery-management-system\backend\inventory-service\src\main\java\com\stationery\inventory\InventoryServiceApplication.java
+C:\Users\yashm\.gemini\antigravity\scratch\stationery-management-system\backend\inventory-service\src\main\java\com\stationery\inventory\repository\AuditLogRepository.java
+C:\Users\yashm\.gemini\antigravity\scratch\stationery-management-system\backend\inventory-service\src\main\java\com\stationery\inventory\service\ItemService.java
+C:\Users\yashm\.gemini\antigravity\scratch\stationery-management-system\backend\inventory-service\src\main\java\com\stationery\inventory\entity\StationeryItem.java
+C:\Users\yashm\.gemini\antigravity\scratch\stationery-management-system\backend\inventory-service\src\main\java\com\stationery\inventory\exception\GlobalExceptionHandler.java
+C:\Users\yashm\.gemini\antigravity\scratch\stationery-management-system\backend\inventory-service\src\main\java\com\stationery\inventory\service\ItemServiceImpl.java
+C:\Users\yashm\.gemini\antigravity\scratch\stationery-management-system\backend\inventory-service\src\main\java\com\stationery\inventory\entity\AuditLog.java
+C:\Users\yashm\.gemini\antigravity\scratch\stationery-management-system\backend\inventory-service\src\main\java\com\stationery\inventory\controller\ItemController.java
+C:\Users\yashm\.gemini\antigravity\scratch\stationery-management-system\backend\inventory-service\src\main\java\com\stationery\inventory\repository\ItemRepository.java

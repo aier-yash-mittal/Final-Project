@@ -1,0 +1,12 @@
+C:\Users\yashm\.gemini\antigravity\scratch\stationery-management-system\backend\auth-service\src\main\java\com\stationery\auth\config\SecurityConfig.java
+C:\Users\yashm\.gemini\antigravity\scratch\stationery-management-system\backend\auth-service\src\main\java\com\stationery\auth\service\JwtUtil.java
+C:\Users\yashm\.gemini\antigravity\scratch\stationery-management-system\backend\auth-service\src\main\java\com\stationery\auth\AuthServiceApplication.java
+C:\Users\yashm\.gemini\antigravity\scratch\stationery-management-system\backend\auth-service\src\main\java\com\stationery\auth\dto\AuthResponse.java
+C:\Users\yashm\.gemini\antigravity\scratch\stationery-management-system\backend\auth-service\src\main\java\com\stationery\auth\exception\GlobalExceptionHandler.java
+C:\Users\yashm\.gemini\antigravity\scratch\stationery-management-system\backend\auth-service\src\main\java\com\stationery\auth\repository\UserRepository.java
+C:\Users\yashm\.gemini\antigravity\scratch\stationery-management-system\backend\auth-service\src\main\java\com\stationery\auth\service\AuthService.java
+C:\Users\yashm\.gemini\antigravity\scratch\stationery-management-system\backend\auth-service\src\main\java\com\stationery\auth\dto\RegisterRequest.java
+C:\Users\yashm\.gemini\antigravity\scratch\stationery-management-system\backend\auth-service\src\main\java\com\stationery\auth\service\AuthServiceImpl.java
+C:\Users\yashm\.gemini\antigravity\scratch\stationery-management-system\backend\auth-service\src\main\java\com\stationery\auth\controller\AuthController.java
+C:\Users\yashm\.gemini\antigravity\scratch\stationery-management-system\backend\auth-service\src\main\java\com\stationery\auth\entity\User.java
+C:\Users\yashm\.gemini\antigravity\scratch\stationery-management-system\backend\auth-service\src\main\java\com\stationery\auth\dto\AuthRequest.java

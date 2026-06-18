@@ -1,0 +1,9 @@
+com\stationery\inventory\controller\ItemController.class
+com\stationery\inventory\exception\GlobalExceptionHandler.class
+com\stationery\inventory\repository\AuditLogRepository.class
+com\stationery\inventory\service\ItemService.class
+com\stationery\inventory\InventoryServiceApplication.class
+com\stationery\inventory\entity\StationeryItem.class
+com\stationery\inventory\service\ItemServiceImpl.class
+com\stationery\inventory\entity\AuditLog.class
+com\stationery\inventory\repository\ItemRepository.class
