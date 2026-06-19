@@ -3,6 +3,8 @@ package com.stationery.request.service;
 import com.stationery.request.client.InventoryClient;
 import com.stationery.request.dto.RequestDto;
 import com.stationery.request.entity.Request;
+import com.stationery.request.entity.RequestGroup;
+import com.stationery.request.repository.RequestGroupRepository;
 import com.stationery.request.repository.RequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,6 +22,9 @@ public class RequestServiceImpl implements RequestService {
     @Autowired
     private InventoryClient inventoryClient;
 
+    @Autowired
+    private RequestGroupRepository requestGroupRepository;
+
     @Override
     public Request createRequest(RequestDto requestDto, String studentEmail) {
         Request request = new Request();
@@ -28,6 +33,24 @@ public class RequestServiceImpl implements RequestService {
         request.setStudentEmail(studentEmail);
         request.setStatus("PENDING");
         return requestRepository.save(request);
+    }
+
+    @Override
+    public RequestGroup createOrder(List<RequestDto> requests, String studentEmail) {
+        RequestGroup group = new RequestGroup();
+        group.setStudentEmail(studentEmail);
+        group = requestGroupRepository.save(group);
+
+        for (RequestDto dto : requests) {
+            Request request = new Request();
+            request.setItemId(dto.getItemId());
+            request.setQuantity(dto.getQuantity());
+            request.setStudentEmail(studentEmail);
+            request.setStatus("PENDING");
+            request.setRequestGroupId(group.getId());
+            requestRepository.save(request);
+        }
+        return group;
     }
 
     @Override

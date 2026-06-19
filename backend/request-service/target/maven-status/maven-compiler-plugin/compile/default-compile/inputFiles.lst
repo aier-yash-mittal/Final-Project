@@ -2,8 +2,10 @@ C:\Users\yashm\.gemini\antigravity\scratch\stationery-management-system\backend\
 C:\Users\yashm\.gemini\antigravity\scratch\stationery-management-system\backend\request-service\src\main\java\com\stationery\request\exception\GlobalExceptionHandler.java
 C:\Users\yashm\.gemini\antigravity\scratch\stationery-management-system\backend\request-service\src\main\java\com\stationery\request\service\RequestService.java
 C:\Users\yashm\.gemini\antigravity\scratch\stationery-management-system\backend\request-service\src\main\java\com\stationery\request\controller\RequestController.java
+C:\Users\yashm\.gemini\antigravity\scratch\stationery-management-system\backend\request-service\src\main\java\com\stationery\request\repository\RequestGroupRepository.java
 C:\Users\yashm\.gemini\antigravity\scratch\stationery-management-system\backend\request-service\src\main\java\com\stationery\request\RequestServiceApplication.java
 C:\Users\yashm\.gemini\antigravity\scratch\stationery-management-system\backend\request-service\src\main\java\com\stationery\request\service\RequestServiceImpl.java
 C:\Users\yashm\.gemini\antigravity\scratch\stationery-management-system\backend\request-service\src\main\java\com\stationery\request\entity\Request.java
+C:\Users\yashm\.gemini\antigravity\scratch\stationery-management-system\backend\request-service\src\main\java\com\stationery\request\entity\RequestGroup.java
 C:\Users\yashm\.gemini\antigravity\scratch\stationery-management-system\backend\request-service\src\main\java\com\stationery\request\dto\RequestDto.java
 C:\Users\yashm\.gemini\antigravity\scratch\stationery-management-system\backend\request-service\src\main\java\com\stationery\request\repository\RequestRepository.java

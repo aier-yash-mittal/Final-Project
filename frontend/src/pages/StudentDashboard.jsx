@@ -5,9 +5,12 @@ import styles from './Dashboard.module.css';
 
 export default function StudentDashboard() {
   const navigate = useNavigate();
+  const userName = localStorage.getItem('name') || 'Student';
+  const [activeTab, setActiveTab] = useState('dashboard');
   const [items, setItems] = useState([]);
   const [requests, setRequests] = useState([]);
   const [quantities, setQuantities] = useState({});
+  const [cart, setCart] = useState([]);
 
   const [itemPage, setItemPage] = useState(0);
   const [itemTotalPages, setItemTotalPages] = useState(1);
@@ -62,6 +65,35 @@ export default function StudentDashboard() {
     setQuantities({ ...quantities, [itemId]: value });
   };
 
+  const addToCart = (item) => {
+    const qty = parseInt(quantities[item.id] || 1);
+    setCart(prev => {
+      const existing = prev.find(c => c.item.id === item.id);
+      if (existing) {
+        return prev.map(c => c.item.id === item.id ? { ...c, quantity: c.quantity + qty } : c);
+      }
+      return [...prev, { item, quantity: qty }];
+    });
+  };
+
+  const removeFromCart = (itemId) => {
+    setCart(prev => prev.filter(c => c.item.id !== itemId));
+  };
+
+  const submitOrder = async () => {
+    if (cart.length === 0) return;
+    try {
+      const payload = cart.map(c => ({ itemId: c.item.id, quantity: c.quantity }));
+      await api.post('/requests/order', payload);
+      alert('Order submitted successfully');
+      setCart([]);
+      fetchMyRequests();
+      setActiveTab('requests');
+    } catch (e) {
+      alert('Failed to submit order');
+    }
+  };
+
   const makeRequest = async (itemId) => {
     const qty = quantities[itemId] || 1;
     try {
@@ -86,10 +118,59 @@ export default function StudentDashboard() {
   return (
     <div>
       <div className={styles.header}>
-        <h2>Student Dashboard</h2>
-        <button onClick={logout} className={styles.btn}>Logout</button>
+        <div className={styles.headerLeft}>
+          <h2>Stationery Hub <span className={styles.roleLabel}>STUDENT WORKSPACE</span></h2>
+          <p>Inventory & Request Management</p>
+        </div>
+        <div className={styles.headerRight} style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+          <div style={{ textAlign: 'right' }}>
+            <strong>Welcome Back, {userName}</strong><br/>
+            <small style={{ color: '#ccc' }}>Browse catalog and track your stationery requests.</small>
+          </div>
+          <button onClick={logout} className={styles.btn}>Logout</button>
+        </div>
       </div>
       <div className={styles.container}>
+        
+        <div className={styles.tabs}>
+          <button 
+            className={`${styles.tabButton} ${activeTab === 'dashboard' ? styles.activeTab : ''}`}
+            onClick={() => setActiveTab('dashboard')}
+          >
+            Dashboard
+          </button>
+          <button 
+            className={`${styles.tabButton} ${activeTab === 'catalog' ? styles.activeTab : ''}`}
+            onClick={() => setActiveTab('catalog')}
+          >
+            Catalog
+          </button>
+          <button 
+            className={`${styles.tabButton} ${activeTab === 'requests' ? styles.activeTab : ''}`}
+            onClick={() => setActiveTab('requests')}
+          >
+            Requests
+          </button>
+        </div>
+
+        {activeTab === 'dashboard' && (
+          <div className={styles.summaryCards}>
+            <div className={styles.summaryCard}>
+              <h3>Total Catalog Items</h3>
+              <p>{allItems.length}</p>
+            </div>
+            <div className={styles.summaryCard}>
+              <h3>My Pending Requests</h3>
+              <p>{requests.filter(r => r.status === 'PENDING').length}</p>
+            </div>
+            <div className={styles.summaryCard}>
+              <h3>My Fulfilled Requests</h3>
+              <p>{requests.filter(r => r.status === 'FULFILLED').length}</p>
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'catalog' && (
         <div className={styles.card}>
           <h3>Available Stationery</h3>
           <table>
@@ -108,7 +189,10 @@ export default function StudentDashboard() {
                       style={{ width: '60px', padding: '5px' }}
                     />
                   </td>
-                  <td><button className={styles.btn} onClick={() => makeRequest(item.id)}>Request</button></td>
+                  <td>
+                    <button className={styles.btn} onClick={() => addToCart(item)} style={{marginRight: '5px'}}>Add to Cart</button>
+                    <button className={styles.btn} onClick={() => makeRequest(item.id)} style={{background: '#888'}}>Request</button>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -118,8 +202,25 @@ export default function StudentDashboard() {
             <span>Page {itemPage + 1} of {itemTotalPages}</span>
             <button className={styles.btn} disabled={itemPage + 1 >= itemTotalPages} onClick={() => setItemPage(p => p + 1)}>Next</button>
           </div>
+          
+          {cart.length > 0 && (
+            <div style={{ marginTop: '20px', padding: '15px', background: '#f9f9f9', borderRadius: '5px', border: '1px solid #ddd' }}>
+              <h4>Your Cart</h4>
+              <ul style={{ listStyle: 'none', padding: 0 }}>
+                {cart.map((c, idx) => (
+                  <li key={idx} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
+                    <span>{c.item.name} x{c.quantity}</span>
+                    <button className={styles.btn} style={{ background: 'red', padding: '2px 8px' }} onClick={() => removeFromCart(c.item.id)}>Remove</button>
+                  </li>
+                ))}
+              </ul>
+              <button className={styles.btn} style={{ background: 'green', width: '100%' }} onClick={submitOrder}>Submit Order</button>
+            </div>
+          )}
         </div>
+        )}
 
+        {activeTab === 'requests' && (
         <div className={styles.card}>
           <h3>My Requests</h3>
           <div style={{ display: 'flex', gap: '15px', marginBottom: '15px' }}>
@@ -137,12 +238,14 @@ export default function StudentDashboard() {
             </select>
           </div>
           <table>
-            <thead><tr><th>Request ID</th><th>Timestamp</th><th>Item Name (ID)</th><th>Quantity</th><th>Status</th><th>Rejection Reason</th></tr></thead>
+            <thead><tr><th>Order ID</th><th>Request ID</th><th>Timestamp</th><th>Item Name (ID)</th><th>Quantity</th><th>Status</th><th>Rejection Reason</th></tr></thead>
             <tbody>
               {sortedRequests.map(req => {
                 const itemName = allItems.find(i => i.id === req.itemId)?.name || 'Unknown';
+                const orderId = req.requestGroupId || '-';
                 return (
                 <tr key={req.id}>
+                  <td>{orderId}</td>
                   <td><strong>{req.id}</strong></td>
                   <td>{formatTime(req.createdAt)}</td>
                   <td>{itemName} ({req.itemId})</td><td>{req.quantity}</td>
@@ -157,6 +260,7 @@ export default function StudentDashboard() {
             <button className={styles.btn} disabled={reqPage + 1 >= reqTotalPages} onClick={() => setReqPage(p => p + 1)}>Next</button>
           </div>
         </div>
+        )}
       </div>
     </div>
   );

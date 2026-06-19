@@ -2,6 +2,7 @@ package com.stationery.request.controller;
 
 import com.stationery.request.dto.RequestDto;
 import com.stationery.request.entity.Request;
+import com.stationery.request.entity.RequestGroup;
 import com.stationery.request.service.RequestService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -25,6 +26,14 @@ public class RequestController {
             @RequestBody RequestDto requestDto, 
             @RequestHeader("loggedInUser") String studentEmail) { // Extracted from JWT by API Gateway
         return ResponseEntity.ok(requestService.createRequest(requestDto, studentEmail));
+    }
+
+    @PostMapping("/order")
+    @Operation(summary = "Create an order", description = "Student creates a multi-item order")
+    public ResponseEntity<RequestGroup> createOrder(
+            @RequestBody List<RequestDto> requests,
+            @RequestHeader("loggedInUser") String studentEmail) {
+        return ResponseEntity.ok(requestService.createOrder(requests, studentEmail));
     }
 
     @GetMapping

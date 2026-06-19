@@ -6,8 +6,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import java.util.List;
 
+import com.stationery.request.entity.RequestGroup;
+
 public interface RequestService {
     Request createRequest(RequestDto requestDto, String studentEmail);
+    RequestGroup createOrder(List<RequestDto> requests, String studentEmail);
     Page<Request> getAllRequests(String status, Pageable pageable);
     Request getRequestById(Long id);
     Page<Request> getRequestsByStudent(String studentEmail, String status, Pageable pageable);

@@ -5,6 +5,8 @@ import styles from './Dashboard.module.css';
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
+  const userName = localStorage.getItem('name') || 'Admin';
+  const [activeTab, setActiveTab] = useState('dashboard');
   const [requests, setRequests] = useState([]);
   const [items, setItems] = useState([]);
 
@@ -149,11 +151,59 @@ export default function AdminDashboard() {
   return (
     <div>
       <div className={styles.header}>
-        <h2>Admin Dashboard</h2>
-        <button onClick={logout} className={styles.btn}>Logout</button>
+        <div className={styles.headerLeft}>
+          <h2>Stationery Hub <span className={styles.roleLabel}>ADMIN WORKSPACE</span></h2>
+          <p>Inventory & Request Management</p>
+        </div>
+        <div className={styles.headerRight} style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+          <div style={{ textAlign: 'right' }}>
+            <strong>Welcome Back, {userName}</strong><br/>
+            <small style={{ color: '#ccc' }}>Manage inventory, approvals and stationery requests.</small>
+          </div>
+          <button onClick={logout} className={styles.btn}>Logout</button>
+        </div>
       </div>
       <div className={styles.container}>
         
+        <div className={styles.tabs}>
+          <button 
+            className={`${styles.tabButton} ${activeTab === 'dashboard' ? styles.activeTab : ''}`}
+            onClick={() => setActiveTab('dashboard')}
+          >
+            Dashboard
+          </button>
+          <button 
+            className={`${styles.tabButton} ${activeTab === 'catalog' ? styles.activeTab : ''}`}
+            onClick={() => setActiveTab('catalog')}
+          >
+            Catalog
+          </button>
+          <button 
+            className={`${styles.tabButton} ${activeTab === 'requests' ? styles.activeTab : ''}`}
+            onClick={() => setActiveTab('requests')}
+          >
+            Requests
+          </button>
+        </div>
+
+        {activeTab === 'dashboard' && (
+          <div className={styles.summaryCards}>
+            <div className={styles.summaryCard}>
+              <h3>Total Items</h3>
+              <p>{allItems.length}</p>
+            </div>
+            <div className={styles.summaryCard}>
+              <h3>Pending Requests</h3>
+              <p>{requests.filter(r => r.status === 'PENDING').length}</p>
+            </div>
+            <div className={styles.summaryCard}>
+              <h3>Low Stock Items</h3>
+              <p>{allItems.filter(i => i.availableQuantity <= i.minimumQuantity).length}</p>
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'requests' && (
         <div className={styles.card}>
           <h3>All Requests</h3>
           <div style={{ display: 'flex', gap: '15px', marginBottom: '15px' }}>
@@ -171,15 +221,19 @@ export default function AdminDashboard() {
             </select>
           </div>
           <table>
-            <thead><tr><th>Request ID</th><th>Timestamp</th><th>Student</th><th>Item Name (ID)</th><th>Qty</th><th>Status</th><th>Actions</th></tr></thead>
+            <thead><tr><th>Order ID</th><th>Request ID</th><th>Timestamp</th><th>Student</th><th>Item Name (ID)</th><th>Available Qty</th><th>Requested Qty</th><th>Status</th><th>Actions</th></tr></thead>
             <tbody>
               {sortedRequests.map(req => {
-                const itemName = allItems.find(i => i.id === req.itemId)?.name || 'Unknown';
+                const item = allItems.find(i => i.id === req.itemId);
+                const itemName = item?.name || 'Unknown';
+                const availableQty = item?.availableQuantity ?? '-';
+                const orderId = req.requestGroupId || '-';
                 return (
                 <tr key={req.id}>
+                  <td>{orderId}</td>
                   <td><strong>{req.id}</strong></td>
                   <td>{formatTime(req.createdAt)}</td>
-                  <td>{req.studentEmail}</td><td>{itemName} ({req.itemId})</td><td>{req.quantity}</td>
+                  <td>{req.studentEmail}</td><td>{itemName} ({req.itemId})</td><td>{availableQty}</td><td>{req.quantity}</td>
                   <td><strong>{req.status}</strong></td>
                   <td>
                     {req.status === 'PENDING' && (
@@ -202,7 +256,9 @@ export default function AdminDashboard() {
             <button className={styles.btn} disabled={reqPage + 1 >= reqTotalPages} onClick={() => setReqPage(p => p + 1)}>Next</button>
           </div>
         </div>
+        )}
 
+        {activeTab === 'catalog' && (
         <div className={styles.card}>
           <h3>Inventory Management</h3>
           <form onSubmit={handleSubmitItem} style={{display: 'flex', flexWrap: 'wrap', gap: '10px', marginBottom: '20px', background: '#f9f9f9', padding: '15px', borderRadius: '5px'}}>
@@ -254,6 +310,7 @@ export default function AdminDashboard() {
             <button className={styles.btn} disabled={itemPage + 1 >= itemTotalPages} onClick={() => setItemPage(p => p + 1)}>Next</button>
           </div>
         </div>
+        )}
 
       </div>
     </div>

@@ -23,6 +23,9 @@ public class Request {
     
     @Column(name = "rejection_reason")
     private String rejectionReason;
+
+    @Column(name = "request_group_id")
+    private Long requestGroupId;
     
     @Column(name = "created_at")
     private LocalDateTime createdAt;
@@ -54,6 +57,8 @@ public class Request {
     public void setStatus(String status) { this.status = status; }
     public String getRejectionReason() { return rejectionReason; }
     public void setRejectionReason(String rejectionReason) { this.rejectionReason = rejectionReason; }
+    public Long getRequestGroupId() { return requestGroupId; }
+    public void setRequestGroupId(Long requestGroupId) { this.requestGroupId = requestGroupId; }
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
 }

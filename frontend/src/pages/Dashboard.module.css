@@ -39,3 +39,89 @@
   padding: 10px 20px;
   margin-bottom: 20px;
 }
+
+.headerLeft h2 {
+  margin: 0;
+}
+
+.headerLeft p {
+  margin: 0;
+  font-size: 0.9em;
+  color: #ccc;
+}
+
+.tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 10px;
+}
+
+.tabButton {
+  background: none;
+  border: none;
+  font-size: 1.1em;
+  padding: 10px 15px;
+  cursor: pointer;
+  color: #555;
+  border-radius: 4px;
+}
+
+.tabButton:hover {
+  background: #f1f1f1;
+}
+
+.activeTab {
+  background: #007bff;
+  color: white;
+}
+
+.activeTab:hover {
+  background: #0056b3;
+}
+
+.summaryCards {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.summaryCard {
+  flex: 1;
+  background: white;
+  padding: 30px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  text-align: center;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.summaryCard h3 {
+  margin-top: 0;
+  color: #333;
+  font-size: 1.3em;
+}
+
+.summaryCard p {
+  font-size: 2.5em;
+  font-weight: bold;
+  margin: 15px 0 0;
+  color: #007bff;
+}
+
+.roleLabel {
+  background-color: #007bff;
+  color: white;
+  font-size: 0.6em;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  vertical-align: middle;
+  margin-left: 15px;
+  text-transform: uppercase;
+}
