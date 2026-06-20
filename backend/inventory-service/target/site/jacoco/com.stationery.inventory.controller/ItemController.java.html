@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ItemController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">inventory-service</a> &gt; <a href="index.source.html" class="el_package">com.stationery.inventory.controller</a> &gt; <span class="el_source">ItemController.java</span></div><h1>ItemController.java</h1><pre class="source lang-java linenums">package com.stationery.inventory.controller;
+
+import com.stationery.inventory.entity.StationeryItem;
+import com.stationery.inventory.service.ItemService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping(&quot;/items&quot;)
+@Tag(name = &quot;Inventory&quot;, description = &quot;Stationery Inventory Management APIs&quot;)
+<span class="fc" id="L19">public class ItemController {</span>
+
+    @Autowired
+    private ItemService itemService;
+
+    @PostMapping
+    @Operation(summary = &quot;Add new item&quot;, description = &quot;Admin only&quot;)
+    public ResponseEntity&lt;StationeryItem&gt; createItem(@RequestBody StationeryItem item) {
+<span class="fc" id="L27">        return ResponseEntity.ok(itemService.createItem(item));</span>
+    }
+
+    @PutMapping(&quot;/{id}&quot;)
+    @Operation(summary = &quot;Update item details&quot;, description = &quot;Admin only&quot;)
+    public ResponseEntity&lt;StationeryItem&gt; updateItem(@PathVariable Long id, @RequestBody StationeryItem item) {
+<span class="fc" id="L33">        return ResponseEntity.ok(itemService.updateItem(id, item));</span>
+    }
+
+    @DeleteMapping(&quot;/{id}&quot;)
+    @Operation(summary = &quot;Delete item&quot;, description = &quot;Admin only&quot;)
+    public ResponseEntity&lt;String&gt; deleteItem(@PathVariable Long id) {
+<span class="fc" id="L39">        itemService.deleteItem(id);</span>
+<span class="fc" id="L40">        return ResponseEntity.ok(&quot;Item deleted successfully&quot;);</span>
+    }
+
+    @GetMapping
+    @Operation(summary = &quot;Get all items&quot;, description = &quot;Supports pagination and sorting&quot;)
+    public ResponseEntity&lt;Page&lt;StationeryItem&gt;&gt; getAllItems(
+            @RequestParam(defaultValue = &quot;0&quot;) int page,
+            @RequestParam(defaultValue = &quot;10&quot;) int size,
+            @RequestParam(defaultValue = &quot;id&quot;) String sortBy) {
+<span class="fc" id="L49">        return ResponseEntity.ok(itemService.getAllItems(PageRequest.of(page, size, Sort.by(sortBy))));</span>
+    }
+
+    @GetMapping(&quot;/{id}&quot;)
+    @Operation(summary = &quot;Get item by ID&quot;)
+    public ResponseEntity&lt;StationeryItem&gt; getItemById(@PathVariable Long id) {
+<span class="fc" id="L55">        return ResponseEntity.ok(itemService.getItemById(id));</span>
+    }
+
+    @GetMapping(&quot;/category/{category}&quot;)
+    @Operation(summary = &quot;Get items by category&quot;)
+    public ResponseEntity&lt;List&lt;StationeryItem&gt;&gt; getItemsByCategory(@PathVariable String category) {
+<span class="nc" id="L61">        return ResponseEntity.ok(itemService.getItemsByCategory(category));</span>
+    }
+
+    @GetMapping(&quot;/low-stock&quot;)
+    @Operation(summary = &quot;Get low stock items&quot;, description = &quot;Admin only&quot;)
+    public ResponseEntity&lt;List&lt;StationeryItem&gt;&gt; getLowStockItems() {
+<span class="nc" id="L67">        return ResponseEntity.ok(itemService.getLowStockItems());</span>
+    }
+
+    @GetMapping(&quot;/search&quot;)
+    @Operation(summary = &quot;Search items by name&quot;)
+    public ResponseEntity&lt;Page&lt;StationeryItem&gt;&gt; searchItems(
+            @RequestParam String name,
+            @RequestParam(defaultValue = &quot;0&quot;) int page,
+            @RequestParam(defaultValue = &quot;10&quot;) int size) {
+<span class="nc" id="L76">        return ResponseEntity.ok(itemService.searchItems(name, PageRequest.of(page, size)));</span>
+    }
+
+    @PutMapping(&quot;/{id}/deduct&quot;)
+    @Operation(summary = &quot;Deduct quantity&quot;, description = &quot;Used by Request Service via Feign&quot;)
+    public ResponseEntity&lt;String&gt; deductQuantity(@PathVariable Long id, @RequestParam Integer quantity) {
+<span class="fc" id="L82">        itemService.deductQuantity(id, quantity);</span>
+<span class="fc" id="L83">        return ResponseEntity.ok(&quot;Quantity deducted successfully&quot;);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

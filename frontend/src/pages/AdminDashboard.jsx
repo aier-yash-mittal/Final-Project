@@ -80,8 +80,9 @@ export default function AdminDashboard() {
       } else {
         await api.put(`/requests/${action}/${id}`);
       }
-      fetchRequests();
-      fetchItems();
+      await fetchRequests();
+      await fetchItems();
+      await fetchAllItemsForMapping();
     } catch (e) {
       alert('Action failed');
     }

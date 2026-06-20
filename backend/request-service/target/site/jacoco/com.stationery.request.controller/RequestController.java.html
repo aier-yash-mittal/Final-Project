@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RequestController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">request-service</a> &gt; <a href="index.source.html" class="el_package">com.stationery.request.controller</a> &gt; <span class="el_source">RequestController.java</span></div><h1>RequestController.java</h1><pre class="source lang-java linenums">package com.stationery.request.controller;
+
+import com.stationery.request.dto.RequestDto;
+import com.stationery.request.entity.Request;
+import com.stationery.request.entity.RequestGroup;
+import com.stationery.request.service.RequestService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping(&quot;/requests&quot;)
+@Tag(name = &quot;Requests&quot;, description = &quot;Student Request Management APIs&quot;)
+<span class="fc" id="L18">public class RequestController {</span>
+
+    @Autowired
+    private RequestService requestService;
+
+    @PostMapping
+    @Operation(summary = &quot;Create a request&quot;, description = &quot;Student creates a request for items&quot;)
+    public ResponseEntity&lt;Request&gt; createRequest(
+            @RequestBody RequestDto requestDto, 
+            @RequestHeader(&quot;loggedInUser&quot;) String studentEmail) { // Extracted from JWT by API Gateway
+<span class="fc" id="L28">        return ResponseEntity.ok(requestService.createRequest(requestDto, studentEmail));</span>
+    }
+
+    @PostMapping(&quot;/order&quot;)
+    @Operation(summary = &quot;Create an order&quot;, description = &quot;Student creates a multi-item order&quot;)
+    public ResponseEntity&lt;RequestGroup&gt; createOrder(
+            @RequestBody List&lt;RequestDto&gt; requests,
+            @RequestHeader(&quot;loggedInUser&quot;) String studentEmail) {
+<span class="fc" id="L36">        return ResponseEntity.ok(requestService.createOrder(requests, studentEmail));</span>
+    }
+
+    @GetMapping
+    @Operation(summary = &quot;Get all requests&quot;, description = &quot;Admin view with pagination and filtering&quot;)
+    public ResponseEntity&lt;org.springframework.data.domain.Page&lt;Request&gt;&gt; getAllRequests(
+            @RequestParam(required = false, defaultValue = &quot;ALL&quot;) String status,
+            @RequestParam(defaultValue = &quot;0&quot;) int page,
+            @RequestParam(defaultValue = &quot;10&quot;) int size,
+            @RequestParam(defaultValue = &quot;id&quot;) String sortBy) {
+<span class="fc" id="L46">        return ResponseEntity.ok(requestService.getAllRequests(status, org.springframework.data.domain.PageRequest.of(page, size, org.springframework.data.domain.Sort.by(sortBy).descending())));</span>
+    }
+
+    @GetMapping(&quot;/my-requests&quot;)
+    @Operation(summary = &quot;Get my requests&quot;, description = &quot;Student view with pagination and filtering&quot;)
+    public ResponseEntity&lt;org.springframework.data.domain.Page&lt;Request&gt;&gt; getMyRequests(
+            @RequestHeader(&quot;loggedInUser&quot;) String studentEmail,
+            @RequestParam(required = false, defaultValue = &quot;ALL&quot;) String status,
+            @RequestParam(defaultValue = &quot;0&quot;) int page,
+            @RequestParam(defaultValue = &quot;10&quot;) int size,
+            @RequestParam(defaultValue = &quot;id&quot;) String sortBy) {
+<span class="fc" id="L57">        return ResponseEntity.ok(requestService.getRequestsByStudent(studentEmail, status, org.springframework.data.domain.PageRequest.of(page, size, org.springframework.data.domain.Sort.by(sortBy).descending())));</span>
+    }
+
+    @GetMapping(&quot;/{id}&quot;)
+    @Operation(summary = &quot;Get request by ID&quot;)
+    public ResponseEntity&lt;Request&gt; getRequestById(@PathVariable Long id) {
+<span class="nc" id="L63">        return ResponseEntity.ok(requestService.getRequestById(id));</span>
+    }
+
+    @PutMapping(&quot;/approve/{id}&quot;)
+    @Operation(summary = &quot;Approve request&quot;, description = &quot;Admin only&quot;)
+    public ResponseEntity&lt;Request&gt; approveRequest(@PathVariable Long id) {
+<span class="fc" id="L69">        return ResponseEntity.ok(requestService.approveRequest(id));</span>
+    }
+
+    @PutMapping(&quot;/reject/{id}&quot;)
+    @Operation(summary = &quot;Reject request&quot;, description = &quot;Admin only&quot;)
+    public ResponseEntity&lt;Request&gt; rejectRequest(@PathVariable Long id, @RequestParam String reason) {
+<span class="fc" id="L75">        return ResponseEntity.ok(requestService.rejectRequest(id, reason));</span>
+    }
+
+    @PutMapping(&quot;/fulfil/{id}&quot;)
+    @Operation(summary = &quot;Fulfil request&quot;, description = &quot;Admin only. This triggers Feign call to Inventory.&quot;)
+    public ResponseEntity&lt;Request&gt; fulfilRequest(@PathVariable Long id) {
+<span class="fc" id="L81">        return ResponseEntity.ok(requestService.fulfilRequest(id));</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

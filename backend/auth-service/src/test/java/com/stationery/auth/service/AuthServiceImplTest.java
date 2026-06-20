@@ -73,4 +73,39 @@ public class AuthServiceImplTest {
         Exception exception = assertThrows(RuntimeException.class, () -> authService.login(req));
         assertEquals("Invalid Password", exception.getMessage());
     }
+
+    @Test
+    void testRegisterSuccess() {
+        com.stationery.auth.dto.RegisterRequest req = new com.stationery.auth.dto.RegisterRequest();
+        req.setEmail("new@test.com");
+        req.setPassword("password");
+        req.setName("New Student");
+        req.setRole("STUDENT");
+
+        when(userRepository.findByEmail(anyString())).thenReturn(Optional.empty());
+        when(passwordEncoder.encode(anyString())).thenReturn("encodedPassword");
+
+        String result = authService.register(req);
+
+        assertEquals("User saved successfully", result);
+        org.mockito.Mockito.verify(userRepository).save(org.mockito.ArgumentMatchers.any(User.class));
+    }
+
+    @Test
+    void testRegisterFailureDuplicateEmail() {
+        com.stationery.auth.dto.RegisterRequest req = new com.stationery.auth.dto.RegisterRequest();
+        req.setEmail("existing@test.com");
+
+        User existingUser = new User();
+        when(userRepository.findByEmail(anyString())).thenReturn(Optional.of(existingUser));
+
+        Exception exception = assertThrows(RuntimeException.class, () -> authService.register(req));
+        assertEquals("Email already exists", exception.getMessage());
+    }
+
+    @Test
+    void testValidateToken() {
+        org.mockito.Mockito.doNothing().when(jwtUtil).validateToken(anyString());
+        assertDoesNotThrow(() -> authService.validateToken("some-token"));
+    }
 }

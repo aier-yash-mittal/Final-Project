@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>StationeryItem.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">inventory-service</a> &gt; <a href="index.source.html" class="el_package">com.stationery.inventory.entity</a> &gt; <span class="el_source">StationeryItem.java</span></div><h1>StationeryItem.java</h1><pre class="source lang-java linenums">package com.stationery.inventory.entity;
+
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = &quot;stationery_items&quot;)
+<span class="fc" id="L8">public class StationeryItem {</span>
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String name;
+    private String category;
+    private String unit;
+    
+    @Column(name = &quot;available_quantity&quot;)
+    private Integer availableQuantity;
+    
+    @Column(name = &quot;minimum_quantity&quot;)
+    private Integer minimumQuantity;
+    
+    @Column(name = &quot;created_at&quot;)
+    private LocalDateTime createdAt;
+    
+    @Column(name = &quot;updated_at&quot;)
+    private LocalDateTime updatedAt;
+
+    @PrePersist
+    protected void onCreate() {
+<span class="nc" id="L32">        createdAt = LocalDateTime.now();</span>
+<span class="nc" id="L33">        updatedAt = LocalDateTime.now();</span>
+<span class="nc" id="L34">    }</span>
+
+    @PreUpdate
+    protected void onUpdate() {
+<span class="nc" id="L38">        updatedAt = LocalDateTime.now();</span>
+<span class="nc" id="L39">    }</span>
+
+    // Getters and Setters
+<span class="fc" id="L42">    public Long getId() { return id; }</span>
+<span class="fc" id="L43">    public void setId(Long id) { this.id = id; }</span>
+<span class="fc" id="L44">    public String getName() { return name; }</span>
+<span class="fc" id="L45">    public void setName(String name) { this.name = name; }</span>
+<span class="fc" id="L46">    public String getCategory() { return category; }</span>
+<span class="fc" id="L47">    public void setCategory(String category) { this.category = category; }</span>
+<span class="fc" id="L48">    public String getUnit() { return unit; }</span>
+<span class="fc" id="L49">    public void setUnit(String unit) { this.unit = unit; }</span>
+<span class="fc" id="L50">    public Integer getAvailableQuantity() { return availableQuantity; }</span>
+<span class="fc" id="L51">    public void setAvailableQuantity(Integer availableQuantity) { this.availableQuantity = availableQuantity; }</span>
+<span class="fc" id="L52">    public Integer getMinimumQuantity() { return minimumQuantity; }</span>
+<span class="fc" id="L53">    public void setMinimumQuantity(Integer minimumQuantity) { this.minimumQuantity = minimumQuantity; }</span>
+<span class="fc" id="L54">    public LocalDateTime getCreatedAt() { return createdAt; }</span>
+<span class="fc" id="L55">    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }</span>
+<span class="fc" id="L56">    public LocalDateTime getUpdatedAt() { return updatedAt; }</span>
+<span class="fc" id="L57">    public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

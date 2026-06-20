@@ -18,5 +18,8 @@
 		<module>inventory-service</module>
 		<module>request-service</module>
 	</modules>
-
+	<build>
+		<plugins>
+		</plugins>
+	</build>
 </project>

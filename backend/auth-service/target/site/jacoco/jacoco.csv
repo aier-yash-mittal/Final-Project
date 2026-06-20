@@ -1,0 +1,11 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+auth-service,com.stationery.auth.dto,RegisterRequest,0,31,0,0,0,9,0,9,0,9
+auth-service,com.stationery.auth.dto,AuthResponse,0,27,0,0,0,10,0,5,0,5
+auth-service,com.stationery.auth.dto,AuthRequest,0,17,0,0,0,5,0,5,0,5
+auth-service,com.stationery.auth.service,AuthServiceImpl,5,91,0,4,0,18,1,6,1,4
+auth-service,com.stationery.auth.service,JwtUtil,0,59,0,0,0,15,0,5,0,5
+auth-service,com.stationery.auth.exception,GlobalExceptionHandler,0,48,0,0,0,11,0,4,0,4
+auth-service,com.stationery.auth.controller,AuthController,0,22,0,0,0,5,0,4,0,4
+auth-service,com.stationery.auth,AuthServiceApplication,5,3,0,0,2,1,1,1,1,1
+auth-service,com.stationery.auth.entity,User,18,31,0,0,6,9,5,9,5,9
+auth-service,com.stationery.auth.config,SecurityConfig,61,0,0,0,9,0,5,0,5,0

@@ -1,1 +1,3 @@
 com\stationery\inventory\service\ItemServiceImplTest.class
+com\stationery\inventory\controller\ItemControllerTest.class
+com\stationery\inventory\exception\GlobalExceptionHandlerTest.class
