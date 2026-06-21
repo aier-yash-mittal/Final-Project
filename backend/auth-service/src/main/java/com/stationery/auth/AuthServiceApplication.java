@@ -11,3 +11,5 @@ public class AuthServiceApplication {
 		SpringApplication.run(AuthServiceApplication.class, args);
 	}
 }
+// auth-servicemain entry point , application starts by this file 
+

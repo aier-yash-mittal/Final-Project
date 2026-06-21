@@ -11,3 +11,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     </BrowserRouter>
   </React.StrictMode>,
 )
+
+// . main.jsx is main entry point of the React application. It renders the App component inside a BrowserRouter to enable client-side routing. The React.StrictMode is used to highlight potential problems in the application during development.
+

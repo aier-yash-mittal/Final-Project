@@ -29,7 +29,7 @@ public class RequestController {
     }
 
     @PostMapping("/order")
-    @Operation(summary = "Create an order", description = "Student creates a multi-item order")
+    @Operation(summary = "Create an order", description = "Student creates a multi-item order")//for swagger
     public ResponseEntity<RequestGroup> createOrder(
             @RequestBody List<RequestDto> requests,
             @RequestHeader("loggedInUser") String studentEmail) {

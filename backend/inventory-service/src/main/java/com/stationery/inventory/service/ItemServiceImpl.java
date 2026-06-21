@@ -55,7 +55,7 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public void deleteItem(Long id) {
         StationeryItem existing = getItemById(id);
-        logAudit(existing.getId(), existing.getAvailableQuantity(), 0, "DELETED");
+        logAudit(existing.getId(), existing.getAvailableQuantity(), 0, "DELETED");  //in delete audit log is done before beacuse after deletion we cannot get the item details
         itemRepository.deleteById(id);
     }
 
@@ -97,3 +97,4 @@ public class ItemServiceImpl implements ItemService {
         return itemRepository.findLowStockItems();
     }
 }
+

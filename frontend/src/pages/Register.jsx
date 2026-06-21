@@ -5,10 +5,10 @@ import styles from './Dashboard.module.css';
 
 export default function Register() {
   const [formData, setFormData] = useState({ name: '', email: '', password: '', role: 'STUDENT' });
-  const navigate = useNavigate();
+  const navigate = useNavigate(); //page navigation ke liye useNavigate hook ka use kiya hai.
 
-  const handleRegister = async (e) => {
-    e.preventDefault();
+  const handleRegister = async (e) => { 
+    e.preventDefault(); //default form submission behavior is prevented to avoid page reload.
     try {
       await api.post('/auth/register', formData);
       alert('Registration Successful! Please login.');

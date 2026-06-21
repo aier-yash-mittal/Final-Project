@@ -46,3 +46,7 @@ public class JwtUtil {
         return Keys.hmacShaKeyFor(keyBytes);
     }
 }
+//JWT me kya store kar rahe ho?
+// Email ko subject ke roop me aur role ko claim ke roop me store kar rahe hain. Token creation time aur expiration time bhi set kiya gaya hai.
+//Session use kyu nahi kiya?
+//Microservices architecture me stateless authentication better hoti hai. JWT self-contained token hota hai aur har request ke saath validate kiya ja sakta hai, isliye server-side session maintain karne ki zarurat nahi padti.

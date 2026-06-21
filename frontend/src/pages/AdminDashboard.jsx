@@ -44,9 +44,9 @@ export default function AdminDashboard() {
     fetchAllItemsForMapping();
   }, []);
 
-  const fetchRequests = async () => {
+  const fetchRequests = async () => { 
     const apiSort = reqSortBy === 'itemName' ? 'createdAt' : reqSortBy;
-    const res = await api.get(`/requests?page=${reqPage}&size=20&sortBy=${apiSort}&status=${reqStatus}`);
+    const res = await api.get(`/requests?page=${reqPage}&size=20&sortBy=${apiSort}&status=${reqStatus}`); 
     setRequests(res.data.content);
     setReqTotalPages(res.data.totalPages);
   };

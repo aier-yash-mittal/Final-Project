@@ -14,8 +14,7 @@ public class AuditLog {
     private Long itemId;
     private Integer oldQuantity;
     private Integer newQuantity;
-    private String action; // e.g. CREATED, UPDATED, DEDUCTED
-    
+    private String action; 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 

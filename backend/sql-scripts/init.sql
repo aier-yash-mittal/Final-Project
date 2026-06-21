@@ -23,3 +23,7 @@ INSERT INTO stationery_items (name, category, unit, available_quantity, minimum_
 ('A4 Paper Rim', 'Paper', 'Rim', 50, 10),
 ('Blue Pen', 'Writing', 'Box', 100, 20),
 ('Notebook', 'Paper', 'Piece', 200, 50);
+
+
+//init.sql is made to initialize the databases and tables required for the application. It creates three databases: auth_db, inventory_db, and request_db. It also grants all privileges on these databases to the root user. Then it creates a stationery_items table in the inventory_db database and inserts some sample data into it.
+//if init.sql is removed, the databases and tables will not be created automatically, and the application will fail to start due to missing database schema. The application relies on these databases and tables to store and manage data related to authentication, inventory, and requests.

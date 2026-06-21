@@ -45,3 +45,8 @@ function App() {
 }
 
 export default App;
+
+
+// PrivateRoute is made for role-based access control. It checks if the user is authenticated and has the required role to access a route. If not, it redirects them to the login page.
+// Navigate is used to redirect users to different routes based on their authentication status and role. For example, if a user tries to access the admin dashboard without being logged in or without the admin role, they will be redirected to the login page
+

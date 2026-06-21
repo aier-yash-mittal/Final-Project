@@ -23,3 +23,5 @@
 		</plugins>
 	</build>
 </project>
+
+<!-- this is parent pom made for managing the multi-module project , it is non-executable and it manages the build process for all sub-modules -->

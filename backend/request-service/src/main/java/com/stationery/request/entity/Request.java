@@ -11,7 +11,7 @@ public class Request {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "student_email") // Changed from student_id to simplify using JWT claims
+    @Column(name = "student_email") // Changed from student_id to simplify using JWT claims beacause email is available in JWT claims and we can use it to identify the student making the request.
     private String studentEmail;
     
     @Column(name = "item_id")
@@ -19,7 +19,7 @@ public class Request {
     
     private Integer quantity;
     
-    private String status; // PENDING, APPROVED, REJECTED, FULFILLED
+    private String status; 
     
     @Column(name = "rejection_reason")
     private String rejectionReason;
@@ -34,7 +34,7 @@ public class Request {
     protected void onCreate() {
         createdAt = LocalDateTime.now();
         if(status == null) {
-            status = "PENDING";
+            status = "PENDING";  
         }
     }
 

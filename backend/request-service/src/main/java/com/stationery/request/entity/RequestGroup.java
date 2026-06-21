@@ -29,3 +29,4 @@ public class RequestGroup {
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
 }
+//requwest id will be different but order id will be same for all requests in a group.

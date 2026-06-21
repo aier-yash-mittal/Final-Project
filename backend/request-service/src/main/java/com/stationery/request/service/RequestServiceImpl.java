@@ -47,7 +47,7 @@ public class RequestServiceImpl implements RequestService {
             request.setQuantity(dto.getQuantity());
             request.setStudentEmail(studentEmail);
             request.setStatus("PENDING");
-            request.setRequestGroupId(group.getId());
+            request.setRequestGroupId(group.getId());  // Associate request with the group
             requestRepository.save(request);
         }
         return group;
@@ -69,7 +69,7 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     public Page<Request> getRequestsByStudent(String studentEmail, String status, Pageable pageable) {
-        if (status != null && !status.isEmpty() && !status.equalsIgnoreCase("ALL")) {
+        if (status != null && !status.isEmpty() && !status.equalsIgnoreCase("ALL")) {  
             return requestRepository.findByStudentEmailAndStatus(studentEmail, status.toUpperCase(), pageable);
         }
         return requestRepository.findByStudentEmail(studentEmail, pageable);

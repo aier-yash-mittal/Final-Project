@@ -27,3 +27,4 @@ public class RegisterRequest {
     public String getRole() { return role; }
     public void setRole(String role) { this.role = role; }
 }
+//validation done so that we dont have empty values and invalid requests do not reach service layer 

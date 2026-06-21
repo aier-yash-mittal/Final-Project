@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/items")
+@RequestMapping("/items") 
 @Tag(name = "Inventory", description = "Stationery Inventory Management APIs")
 public class ItemController {
 
@@ -77,7 +77,7 @@ public class ItemController {
     }
 
     @PutMapping("/{id}/deduct")
-    @Operation(summary = "Deduct quantity", description = "Used by Request Service via Feign")
+    @Operation(summary = "Deduct quantity", description = "Used by Request Service via Feign") //Feign Client os  declarative REST client which connects  two microservices.
     public ResponseEntity<String> deductQuantity(@PathVariable Long id, @RequestParam Integer quantity) {
         itemService.deductQuantity(id, quantity);
         return ResponseEntity.ok("Quantity deducted successfully");

@@ -22,3 +22,5 @@ public class RouterValidator {
                     .stream()
                     .noneMatch(uri -> request.getURI().getPath().contains(uri));
 }
+
+// RouterValidator purpose is to identify Public aur secured APIs.

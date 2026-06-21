@@ -1,6 +1,6 @@
 package com.stationery.auth.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.*;     
 import java.time.LocalDateTime;
 
 @Entity
@@ -8,17 +8,17 @@ import java.time.LocalDateTime;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) 
     private Long id;
 
     private String name;
     
-    @Column(unique = true)
+    @Column(unique = true) 
     private String email;
     
-    private String password;
+    private String password; 
     
-    private String role; // ADMIN or STUDENT
+    private String role; 
     
     @Column(name = "created_at")
     private LocalDateTime createdAt;

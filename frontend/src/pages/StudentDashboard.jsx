@@ -35,24 +35,24 @@ export default function StudentDashboard() {
   }, []);
 
   const fetchItems = async () => {
-    const res = await api.get(`/items?page=${itemPage}&size=20`);
-    setItems(res.data.content);
-    setItemTotalPages(res.data.totalPages);
+    const res = await api.get(`/items?page=${itemPage}&size=20`); 
+    setItems(res.data.content); //items save
+    setItemTotalPages(res.data.totalPages); 
   };
 
-  const fetchAllItemsForMapping = async () => {
+  const fetchAllItemsForMapping = async () => {  
     const res = await api.get(`/items?page=0&size=10000`);
     setAllItems(res.data.content);
   };
 
-  const fetchMyRequests = async () => {
+  const fetchMyRequests = async () => { //My Requests tab ke liye requests fetch karne wala function.
     const apiSort = reqSortBy === 'itemName' ? 'createdAt' : reqSortBy;
     const res = await api.get(`/requests/my-requests?page=${reqPage}&size=20&sortBy=${apiSort}&status=${reqStatus}`);
     setRequests(res.data.content);
     setReqTotalPages(res.data.totalPages);
   };
 
-  const sortedRequests = [...requests].sort((a, b) => {
+  const sortedRequests = [...requests].sort((a, b) => { //Client-side sorting for itemName since backend doesn't support it directly.
     if (reqSortBy === 'itemName') {
       const nameA = allItems.find(i => i.id === a.itemId)?.name || '';
       const nameB = allItems.find(i => i.id === b.itemId)?.name || '';
