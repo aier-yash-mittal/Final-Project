@@ -32,6 +32,7 @@ pipeline {
             steps {
                 echo 'Deploying containers using Docker Compose...'
                 dir('ci-cd') {
+                    bat 'docker-compose down --remove-orphans'
                     bat 'docker-compose up -d'
                 }
             }
